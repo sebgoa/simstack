@@ -168,7 +168,7 @@ default['riak']['config']['riak_sysmon']['busy_dist_port'] = true
 default['riak']['config']['sasl']['sasl_error_logger'] = false
 
 # riak_control
-default['riak']['config']['riak_control']['enabled'] = false
+default['riak']['config']['riak_control']['enabled'] = true
 default['riak']['config']['riak_control']['auth'] = "userlist"
 default['riak']['config']['riak_control']['userlist'] = [["user".to_erl_string,"pass".to_erl_string].to_erl_tuple]
 default['riak']['config']['riak_control']['admin'] = true

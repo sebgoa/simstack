@@ -48,10 +48,10 @@ end
 #riak_cs_control
 default['riak_cs_control']['config']['riak_cs_control']['port'] = 8000
 default['riak_cs_control']['config']['riak_cs_control']['cs_hostname'] = "s3.amazonaws.com".to_erl_string
-default['riak_cs_control']['config']['riak_cs_control']['cs_port'] = 80
+default['riak_cs_control']['config']['riak_cs_control']['cs_port'] = 8081
 default['riak_cs_control']['config']['riak_cs_control']['cs_protocol'] = "http".to_erl_string
 default['riak_cs_control']['config']['riak_cs_control']['cs_proxy_host'] = node['ipaddress'].to_erl_string
-default['riak_cs_control']['config']['riak_cs_control']['cs_proxy_port'] = 8081
+default['riak_cs_control']['config']['riak_cs_control']['cs_proxy_port'] = 8082
 default['riak_cs_control']['config']['riak_cs_control']['cs_admin_key'] = "admin-key".to_erl_string
 default['riak_cs_control']['config']['riak_cs_control']['cs_admin_secret'] = "admin-secret".to_erl_string
 default['riak_cs_control']['config']['riak_cs_control']['cs_administration_bucket'] = "riak-cs".to_erl_string
