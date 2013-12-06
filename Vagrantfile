@@ -30,7 +30,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Chef solo provisioning
   config.vm.provision "chef_solo" do |chef|
-     #chef.add_recipe "cloudstack::management"
+     chef.add_recipe "cloudstack"
      chef.add_recipe "riak-cs::package"
      chef.add_recipe "riak"
      chef.add_recipe "riak-cs"

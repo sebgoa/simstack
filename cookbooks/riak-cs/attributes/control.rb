@@ -47,7 +47,7 @@ end
 
 #riak_cs_control
 default['riak_cs_control']['config']['riak_cs_control']['port'] = 8000
-default['riak_cs_control']['config']['riak_cs_control']['cs_hostname'] = "s3.amazonaws.com".to_erl_string
+default['riak_cs_control']['config']['riak_cs_control']['cs_hostname'] = node['ipaddress'].to_erl_string
 default['riak_cs_control']['config']['riak_cs_control']['cs_port'] = 8081
 default['riak_cs_control']['config']['riak_cs_control']['cs_protocol'] = "http".to_erl_string
 default['riak_cs_control']['config']['riak_cs_control']['cs_proxy_host'] = node['ipaddress'].to_erl_string
