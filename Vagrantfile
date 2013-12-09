@@ -20,6 +20,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = OS[:box]
   config.vm.box_url = OS[:url]
+  config.vm.hostname = "simstack"
+  config.vm.provision :shell, :inline => "echo \"10.0.2.15 simstack\" >> /etc/hosts"
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--memory", 2048]
     vb.customize ["modifyvm", :id, "--nicpromisc2", "allow-all"]
@@ -30,13 +32,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Chef solo provisioning
   config.vm.provision "chef_solo" do |chef|
-     chef.add_recipe "cloudstack"
-     chef.add_recipe "riak-cs::package"
-     chef.add_recipe "riak"
-     chef.add_recipe "riak-cs"
-     chef.add_recipe "riak-cs::stanchion"
-     chef.add_recipe "riak-cs::control"
-     chef.add_recipe "chef-riak-cs-create-admin-user"
+     chef.add_recipe "apache-cloudstack::maven"
+     chef.add_recipe "apache-cloudstack::python27"
+     #chef.add_recipe "cloudstack"
+     #chef.add_recipe "riak-cs::package"
+     #chef.add_recipe "riak"
+     #chef.add_recipe "riak-cs"
+     #chef.add_recipe "riak-cs::stanchion"
+     #chef.add_recipe "riak-cs::control"
+     #chef.add_recipe "chef-riak-cs-create-admin-user"
   end
 
   # Test script to install CloudStack

@@ -25,10 +25,11 @@ cd /tmp
 wget http://mirror-fpt-telecom.fpt.net/fedora/epel/6/i386/epel-release-6-8.noarch.rpm
 rpm -ivh epel-release-6-8.noarch.rpm
 yum -y update
+#yum install epel-release
 
 #install python setup tools to install marvin
 yum -y install python-setuptools
-yum -y install python-pip
+#yum -y install python-pip
 yum -y install python-devel
 
 #install mkisofs to create systemvm
