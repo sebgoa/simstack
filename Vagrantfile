@@ -27,14 +27,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize ["modifyvm", :id, "--nicpromisc2", "allow-all"]
   end
 
-  #host-only network setup
-  #config.vm.network "private_network", ip: "192.168.56.10"
-
   # Chef solo provisioning
   config.vm.provision "chef_solo" do |chef|
      chef.add_recipe "apache-cloudstack::maven"
      chef.add_recipe "apache-cloudstack::python27"
-     #chef.add_recipe "cloudstack"
+     chef.add_recipe "apache-cloudstack"
+     chef.add_recipe "apache-cloudstack::marvin"
      #chef.add_recipe "riak-cs::package"
      #chef.add_recipe "riak"
      #chef.add_recipe "riak-cs"
@@ -42,10 +40,26 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
      #chef.add_recipe "riak-cs::control"
      #chef.add_recipe "chef-riak-cs-create-admin-user"
   end
+  
+  # Salt provisioning
+  #config.vm.provision :salt do |salt|
+  #  salt.minion_config = 'salt/minion'
+  #  salt.run_highstate = true
+  #  salt.verbose = true
+  #end
+
+  # Puppet provisioning
+  #config.vm.provision "puppet" do |puppet|
+  #  puppet.manifests_path = "my_manifests"
+  #  puppet.manifest_file = "default.pp"
+  #end
 
   # Test script to install CloudStack
+  # Kept here as legacy info :)
   #config.vm.provision :shell, :path => "bootstrap-centos.sh"
   #config.vm.provision :shell, :path => "bootstrap-ubuntu.sh"
+
+  # Forward ports for CloudStack and Riak(CS)
   config.vm.network :forwarded_port, host: 8080, guest: 8080
   config.vm.network :forwarded_port, host: 8081, guest: 8081
   config.vm.network :forwarded_port, host: 7080, guest: 7080

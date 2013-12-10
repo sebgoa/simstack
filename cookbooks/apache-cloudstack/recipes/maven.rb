@@ -3,6 +3,8 @@
 # Recipe:: maven
 #
 
+maven_tarball = node[:cloudstack][:maven][:source_file]
+
 #Installing openjdk here 
 for p in ["java-1.6.0-openjdk", "java-1.6.0-openjdk-devel"]
   package p do
@@ -21,13 +23,12 @@ bash "Install Maven" do
   user "root"
   cwd ::Chef::Config[:file_cache_path]
   code <<-EOH
-    tar xzf #{"node[:cloudstack][:maven][:source_file]"} -C /usr/local
+    tar xzf #{maven_tarball} -C /usr/local
     cd /usr/local
     ln -s apache-maven-3.0.5 maven
     touch /etc/profile.d/maven.sh
     echo 'export M2_HOME=/usr/local/maven' > /etc/profile.d/maven.sh
-    echo 'export PATH=${M2_HOME}/bin:${PATH}' >> /etc/profile.d/maven.sh 
+    echo 'export PATH=${M2_HOME}/bin:${PATH}' >> /etc/profile.d/maven.sh
     source /etc/profile.d/maven.sh
   EOH
-  creates "/usr/local/maven"
 end
