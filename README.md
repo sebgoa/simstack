@@ -34,9 +34,15 @@ Simply clone simstack and launch vagrant
     cd simstack
     vagrant up
 
-The first time you start the box, simstack will fetch the base veewee box and once booted will among other things clone the entire Apache CloudStack repo. During the build process, maven will also downloads the dependencies. This can take some time (maybe 30 minutes). Once done you can reload the box with:
+The first time you start the box, simstack will fetch the base veewee box and once booted will among other things clone the entire Apache CloudStack repo. During the build process, maven will also downloads the dependencies. This can take some time, so `vagrant up` then go for a coffee. Once done you can reload the box with:
 
     vagrant reload --provision
+
+CloudStack UI should be running at `http://localhost:8080/client` , the AWS API should be running on port `7080`, Riak-CS should be running on `8081` with Riak-CS control running on port `8000`, try it by opening `http://localhost:8000`, you should see a single admin user created, get the keys.
+
+In the CloudStack UI, go to users and get the API keys for the admin user.
+
+Use the `awsapi.py` script in the root tree to get an interactive shell on simstack. You will need to install boto, eutester and ipython
 
 License
 =======

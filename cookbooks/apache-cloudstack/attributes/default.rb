@@ -10,6 +10,6 @@ default['cloudstack']['python']['distribute']['file'] = "distribute-0.6.49.tar.g
 default['cloudstack']['python']['distribute']['version'] = "0.6.49"
 
 default['cloudstack']['git']['install_path'] = "/opt/cloudstack"
-default['cloudstack']['git']['repo'] = "https://git-wip-us.apache.org/repos/asf/cloudstack.git"
+default['cloudstack']['git']['repo'] = "https://github.com/apache/cloudstack.git"
 default['cloudstack']['git']['branch'] = "4.2"
 

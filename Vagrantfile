@@ -29,6 +29,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Chef solo provisioning
   config.vm.provision "chef_solo" do |chef|
+     chef.log_level = :debug
      chef.add_recipe "apache-cloudstack::maven"
      chef.add_recipe "apache-cloudstack::python27"
      chef.add_recipe "apache-cloudstack"

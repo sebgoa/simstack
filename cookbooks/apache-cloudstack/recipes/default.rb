@@ -6,7 +6,7 @@
 include_recipe "apache-cloudstack::maven"
 include_recipe "apache-cloudstack::python27"
 
-for p in ["ntp", "tomcat6", "mysql", "mysql-server", "genisoimage", "git", "python-devel"]
+for p in ["ntp", "tomcat6", "mysql", "mysql-server", "git", "python-devel"]
   package p do
     action :install
   end
@@ -21,8 +21,10 @@ end
 bash "Build from source" do
   cwd node[:cloudstack][:git][:install_path]
   code <<-EOH
-    (virtualenv-2.7 marvin-dir)
-    (source marvin-dir/bin/activate && mvn -Pdeveloper -Dsimulator -DskipTests clean install && deactivate)
+    virtualenv-2.7 marvin-dir
+    source marvin-dir/bin/activate
+    mvn -Pdeveloper -Dsimulator -DskipTests clean install
+    deactivate
   EOH
   notifies :run, "execute[service mysqld restart]", :immediately
 end
