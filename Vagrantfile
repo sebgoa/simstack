@@ -29,11 +29,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Chef solo provisioning
   config.vm.provision "chef_solo" do |chef|
-     chef.log_level = :debug
-     chef.add_recipe "apache-cloudstack::maven"
-     chef.add_recipe "apache-cloudstack::python27"
-     chef.add_recipe "apache-cloudstack"
-     chef.add_recipe "apache-cloudstack::marvin"
+     #chef.log_level = :debug
+     #chef.add_recipe "apache-cloudstack::maven"
+     #chef.add_recipe "apache-cloudstack::python27"
+     #chef.add_recipe "apache-cloudstack"
+     #chef.add_recipe "apache-cloudstack::marvin"
      #chef.add_recipe "riak-cs::package"
      #chef.add_recipe "riak"
      #chef.add_recipe "riak-cs"
@@ -43,16 +43,26 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
   
   # Salt provisioning
-  #config.vm.provision :salt do |salt|
-  #  salt.minion_config = 'salt/minion'
-  #  salt.run_highstate = true
-  #  salt.verbose = true
-  #end
+  config.vm.synced_folder "salt/roots", "/srv/"
+  config.vm.provision :salt do |salt|
+    salt.minion_config = 'salt/minion'
+    salt.run_highstate = true
+    salt.verbose = true
+    salt.always_install = true
+  # Export database credentials
+  #  salt.pillar({
+  #        "database" => {
+  #          "user" => "jdoe",
+  #          "password" => "topsecret"
+  #        }
+  #      })
+  end
 
   # Puppet provisioning
   #config.vm.provision "puppet" do |puppet|
-  #  puppet.manifests_path = "my_manifests"
+  #  puppet.manifests_path = "manifests"
   #  puppet.manifest_file = "default.pp"
+  #  puppet.options = "--verbose --debug"
   #end
 
   # Test script to install CloudStack

@@ -1,3 +1,0 @@
-vim:
-   pkg:
-      - installed

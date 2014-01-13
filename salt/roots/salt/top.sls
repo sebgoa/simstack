@@ -1,3 +1,3 @@
 base:
-    'production':
-        - vim
+    '*':
+        - nginx
