@@ -41,10 +41,10 @@ service iptables stop
 cd /opt
 git clone https://git-wip-us.apache.org/repos/asf/cloudstack.git
 cd cloudstack
-git checkout 4.2
+git checkout 4.3
 
 #build from source 
-mvn -Pdeveloper -Dsimulator -DskipTests clean install
+mvn -Pdeveloper,awsapi -Dsimulator -DskipTests clean install
 
 #setup DB
 service mysqld restart
@@ -52,8 +52,11 @@ mvn -Pdeveloper -pl developer -Ddeploydb
 mvn -Pdeveloper -pl developer -Ddeploydb-simulator
 
 #start mgt server
-mvn -pl client jetty:run
+mvn -pl client jetty:run -D simulator &
+
+#config data center
+python ./tools/marvin/marvin/deployDataCenter.py -i setup/dev/basic.cfg
 
 #run awsapi from source
-mvn -Pawsapi -pl :cloud-awsapi jetty:run
+mvn -Pawsapi -pl :cloud-awsapi jetty:run &
 

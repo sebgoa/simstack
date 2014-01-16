@@ -45,10 +45,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Salt provisioning
   config.vm.synced_folder "salt/roots", "/srv/"
   config.vm.provision :salt do |salt|
-    salt.minion_config = 'salt/minion'
-    salt.run_highstate = true
-    salt.verbose = true
-    salt.always_install = true
+    #salt.minion_config = 'salt/minion'
+    #salt.run_highstate = true
+    #salt.verbose = true
+    #salt.always_install = true
   # Export database credentials
   #  salt.pillar({
   #        "database" => {
@@ -67,7 +67,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Test script to install CloudStack
   # Kept here as legacy info :)
-  #config.vm.provision :shell, :path => "bootstrap-centos.sh"
+  config.vm.provision :shell, :path => "bootstrap-centos.sh"
   #config.vm.provision :shell, :path => "bootstrap-ubuntu.sh"
 
   # Forward ports for CloudStack and Riak(CS)
