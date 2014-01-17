@@ -26,7 +26,7 @@ apt-get -y install riak riak-cs stanchion
 ufw disable
 
 cd /opt
-git clone -b 4.2 https://git-wip-us.apache.org/repos/asf/cloudstack.git
+git clone -b 4.3 https://git-wip-us.apache.org/repos/asf/cloudstack.git
 cd cloudstack
 
 #build from source 
@@ -46,6 +46,3 @@ mvn -pl client jetty:run
 
 #run awsapi from source
 mvn -Pawsapi -pl :cloud-awsapi jetty:run
-
-
-
