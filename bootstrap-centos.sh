@@ -39,9 +39,8 @@ yum -y install genisoimage
 service iptables stop
 
 cd /opt
-git clone https://git-wip-us.apache.org/repos/asf/cloudstack.git
+git clone -b 4.3 https://git-wip-us.apache.org/repos/asf/cloudstack.git
 cd cloudstack
-git checkout 4.3
 
 #build from source 
 mvn -Pdeveloper,awsapi -Dsimulator -DskipTests clean install
