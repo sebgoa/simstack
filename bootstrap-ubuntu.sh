@@ -17,8 +17,8 @@ apt-get -y install python-pip
 apt-get -y install genisoimage
 
 #install riak
-curl <a href="http://apt.basho.com/gpg/basho.apt.key">http://apt.basho.com/gpg/basho.apt.key<;/a> | sudo apt-key add -
-bash -c "echo deb <a href="http://apt.basho.com">http://apt.basho.com<;/a> $(lsb_release -sc) main > /etc/apt/sources.list.d/basho.list"
+curl http://apt.basho.com/gpg/basho.apt.key | sudo apt-key add -
+bash -c "echo deb http://apt.basho.com $(lsb_release -sc) main > /etc/apt/sources.list.d/basho.list"
 apt-get update
 apt-get -y install riak riak-cs stanchion
 
