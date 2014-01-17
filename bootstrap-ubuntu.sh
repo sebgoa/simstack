@@ -26,9 +26,8 @@ apt-get -y install riak riak-cs stanchion
 ufw disable
 
 cd /opt
-git clone https://git-wip-us.apache.org/repos/asf/cloudstack.git
+git clone -b 4.2 https://git-wip-us.apache.org/repos/asf/cloudstack.git
 cd cloudstack
-git checkout 4.2
 
 #build from source 
 mvn -Pdeveloper -Dsimulator -DskipTests clean install
