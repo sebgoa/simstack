@@ -4,8 +4,17 @@ apt-get -y update
 #apt-get -y install openntpd
 apt-get -y install openjdk-6-jdk
 #apt-get -y install java-1.6.0-openjdk-devel
-apt-get -y install tomcat6
-apt-get -y --force-yes install mysql-server-5.5
+#apt-get -y install tomcat6
+
+echo 'mysql-server mysql-server/root_password password foobar' |  debconf-set-selections
+echo 'mysql-server mysql-server/root_password_again password foobar' |  debconf-set-selections
+
+apt-get -qqy install mysql-server
+service mysql restart
+
+#BAD: Sets the root password to null
+mysql -u root -pfoobar < /vagrant/init.sql
+
 apt-get -y install git
 apt-get -y install maven
 
@@ -42,13 +51,15 @@ mvn -Pdeveloper -pl developer -Ddeploydb-simulator
 pip install ./tools/marvin/dist/Marvin-0.1.0.tar.gz 
 
 #stop tomcat to run jetty
-service tomcat6 stop
+#service tomcat6 stop
 
 #start mgt server
 nohup mvn -pl client jetty:run -Dsimulator &> /tmp/cloudstack.out &
 echo "Starting management server on http://localhost:8080/client"
 
 #cfg datacenter
+#dirt wait to let the mgt server start
+sleep 30
 python ./tools/marvin/marvin/deployDataCenter.py -i setup/dev/basic.cfg
 
 #run awsapi from source

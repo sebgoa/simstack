@@ -28,7 +28,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   # Chef solo provisioning
-  config.vm.provision "chef_solo" do |chef|
+  #config.vm.provision "chef_solo" do |chef|
      #chef.log_level = :debug
      #chef.add_recipe "apache-cloudstack::maven"
      #chef.add_recipe "apache-cloudstack::python27"
@@ -40,11 +40,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
      #chef.add_recipe "riak-cs::stanchion"
      #chef.add_recipe "riak-cs::control"
      #chef.add_recipe "chef-riak-cs-create-admin-user"
-  end
+  #end
   
   # Salt provisioning
   config.vm.synced_folder "salt/roots", "/srv/"
-  config.vm.provision :salt do |salt|
+  #config.vm.provision :salt do |salt|
     #salt.minion_config = 'salt/minion'
     #salt.run_highstate = true
     #salt.verbose = true
@@ -56,7 +56,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #          "password" => "topsecret"
   #        }
   #      })
-  end
+  #end
 
   # Puppet provisioning
   #config.vm.provision "puppet" do |puppet|
