@@ -1,0 +1,22 @@
+---
+- hosts: all
+  vars:
+    http_port: 80
+    max_clients: 200
+  sudo: yes
+  sudo_user: root
+  remote_user: vagrant
+  tasks:
+  - name: ensure apache is at the latest version
+    yum: pkg=httpd state=latest
+  - name: insert iptables rule for httpd
+    lineinfile: dest=/etc/sysconfig/iptables create=yes state=present regexp="80" insertafter="^:OUTPUT "
+              line="-A INPUT -p tcp  --dport 80 -j  ACCEPT"
+    notify: restart iptables
+  - name: ensure apache is running
+    service: name=httpd state=started
+  handlers:
+    - name: restart apache
+      service: name=httpd state=restarted
+    - name: restart iptables
+      service: name=iptables state=restarted

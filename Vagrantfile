@@ -10,7 +10,7 @@ UBUNTU = {
   url: "http://people.apache.org/~sebgoa/simstack-ubuntu.box"
 }
 
-OS = UBUNTU
+OS = CENTOS
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
@@ -68,12 +68,21 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Test script to install CloudStack
   # Kept here as legacy info :)
   #config.vm.provision :shell, :path => "bootstrap-centos.sh"
-  config.vm.provision :shell, :path => "bootstrap-ubuntu.sh"
+  #config.vm.provision :shell, :path => "bootstrap-ubuntu.sh"
+
+  # Ansible test
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "ansible/site.yml"
+    ansible.verbose = "vvvv"
+    ansible.host_key_checking = "false"
+    ansible.sudo_user = "root"
+  end
 
   # Forward ports for CloudStack and Riak(CS)
   config.vm.network :forwarded_port, host: 8080, guest: 8080
   config.vm.network :forwarded_port, host: 8081, guest: 8081
   config.vm.network :forwarded_port, host: 7080, guest: 7080
   config.vm.network :forwarded_port, host: 8000, guest: 8000
+  config.vm.network :forwarded_port, host: 8001, guest: 80
 
 end
