@@ -1,0 +1,14 @@
+- name: "Fetch the GPG KEY for cloudstack"
+  action: get_url url=http://yum.basho.com/gpg/RPM-GPG-KEY-basho dest=/tmp/RPM-GPG-KEY owner=root group=root mode=0600
+  
+- name: "Import the GPG key for atomic"
+  action: shell rpm --import /tmp/RPM-GPG-KEY
+
+- name: "Remove the GPG key for atomic"
+  file: dest=/tmp/RPM-GPG-KEY state=absent
+    
+- name: "Install /etc/yum.repos.d/cloudstack.repo file"
+  copy: src=roles/yum/templates/cloudstack.repo dest=/etc/yum.repos.d/cloudstack.repo owner=root group=root mode=0644
+
+
+ 
