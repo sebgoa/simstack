@@ -68,15 +68,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Test script to install CloudStack
   # Kept here as legacy info :)
   #config.vm.provision :shell, :path => "bootstrap-centos.sh"
-  #config.vm.provision :shell, :path => "bootstrap-ubuntu.sh"
+  config.vm.provision :shell, :path => "bootstrap-ubuntu.sh"
 
   # Ansible test
-  config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "ansible/site.yml"
-    ansible.verbose = "vvvv"
-    ansible.host_key_checking = "false"
-    ansible.sudo_user = "root"
-  end
+  #config.vm.provision "ansible" do |ansible|
+  #  ansible.playbook = "ansible/site.yml"
+  #  ansible.verbose = "vvvv"
+  #  ansible.host_key_checking = "false"
+  #  ansible.sudo_user = "root"
+  #end
 
   # Forward ports for CloudStack and Riak(CS)
   config.vm.network :forwarded_port, host: 8080, guest: 8080

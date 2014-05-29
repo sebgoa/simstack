@@ -36,11 +36,12 @@ ufw disable
 
 #clone cloudstack repo
 cd /opt
-git clone -b 4.3 https://git-wip-us.apache.org/repos/asf/cloudstack.git
+git clone -b 4.3 https://giithub.com/apache/cloudstack.git
 cd cloudstack
 
 #build from source 
-mvn -Pdeveloper,awsapi -Dsimulator -DskipTests clean install
+#mvn -Pdeveloper,awsapi -Dsimulator -DskipTests clean install
+mvn -Pdeveloper -Dsimulator -DskipTests clean install
 
 #setup DB
 service mysql restart
@@ -63,5 +64,5 @@ sleep 30
 python ./tools/marvin/marvin/deployDataCenter.py -i setup/dev/basic.cfg
 
 #run awsapi from source
-nohup mvn -Pawsapi -pl :cloud-awsapi jetty:run &> /tmp/awsapi.out &
-echo "Starting AWSAPI interface on port 7080 use the awsapi.py script to test"
+#nohup mvn -Pawsapi -pl :cloud-awsapi jetty:run &> /tmp/awsapi.out &
+#echo "Starting AWSAPI interface on port 7080 use the awsapi.py script to test"
