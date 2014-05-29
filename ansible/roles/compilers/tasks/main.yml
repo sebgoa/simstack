@@ -12,6 +12,7 @@
   - kernel-devel
   - make
   - m4
+  - ntp
   - java-1.6.0-openjdk
   - java-1.6.0-openjdk-devel
   - tomcat6
@@ -25,7 +26,7 @@
   shell: tar xfz /tmp/apache-maven-3.0.5-bin.tar.gz -C /usr/local 
   
 - name: "Link Maven"
-  shell: cd /usr/local && ln -s apache-maven-3.0.5 maven
+  shell: cd /usr/local && ln -sf apache-maven-3.0.5 maven
   
 - name: "Install Maven configuration profile"
   template: src=roles/compilers/templates/etc-profiles-d-maven-sh.j2 
@@ -46,5 +47,13 @@
 
 - name: "Download Distribute for Python"
   get_url: url="http://pypi.python.org/packages/source/d/distribute/distribute-0.6.49.tar.gz" 
-           dest=/tmp/distribute-0.6.49.tar.gz owner=root group=root mode=0600      
-      
+           dest=/tmp/distribute-0.6.49.tar.gz owner=root group=root mode=0600     
+
+- name: "Unpack Distribute"
+  command: tar xfz /tmp/distribute-0.6.49.tar.gz -C /tmp
+  
+- name: "Setup easy_install"
+  shell:  cd /tmp/distribute-0.6.49 && /usr/local/bin/python2.7 ./setup.py install
+  
+- name: "easy_install virtualenv"
+  command: /usr/local/bin/easy_install-2.7 virtualenv 

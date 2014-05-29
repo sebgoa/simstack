@@ -7,7 +7,6 @@
 
   roles:
     - common
-    - yum 
     - compilers
     - mysql
     - cloudstack
