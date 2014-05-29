@@ -18,27 +18,33 @@
   tags:
     - config
     
+- name: yum install packages that need to be latest
+  action: yum name={{ item }} state=latest
+  with_items:
+    - riak
+  notify: restart riak
+  
 - name: "git clone Cloudstack"
   git: repo="https://github.com/apache/cloudstack.git" version="4.3" dest=/opt/cloudstack
   tags:
     - clone
     
-- name: "Marvin"
+- name: "copy build script marvin.sh"
   copy: src=roles/cloudstack/templates/marvin.sh dest=/opt/cloudstack/marvin.sh owner=root mode=755
   tags:
-    - marvin
+    - build
     
-- name: "Marvin"
+- name: "Run marvin.sh"
   shell: /opt/cloudstack/marvin.sh
   tags:
     - build
     
-- name: "Build from source"
-  shell: cd /opt/cloudstack && /usr/local/maven/bin/mvn -Pdeveloper,awsapi -Dsimulator -DskipTests clean install
+- name: "copy start script bootstrap.sh"
+  copy: src=roles/cloudstack/templates/bootstrap.sh dest=/opt/cloudstack/bootstrap.sh owner=root mode=755
   tags:
-    - build
+    - start
     
 - name: "Start AWSAPI interface on port 7080"
-  script: roles/cloudstack/templates/bootstrap.sh
+  shell: /opt/cloudstack/bootstrap.sh
   tags:
     - start
