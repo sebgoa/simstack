@@ -3,9 +3,10 @@
   hosts: all
   user: vagrant
   sudo: True
-  gather_facts: False
+  gather_facts: True
 
   roles:
     - common
-    - mysql 
+    - yum 
     - compilers
+    - mysql

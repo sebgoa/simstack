@@ -1,0 +1,13 @@
+---
+- name: "Yum install developer packages"
+  when: ansible_os_family == "RedHat"
+  yum: name={{ item }} state=present
+  with_items:
+  - autoconf
+  - bison
+  - flex
+  - gcc
+  - gcc-c++
+  - kernel-devel
+  - make
+  - m4
