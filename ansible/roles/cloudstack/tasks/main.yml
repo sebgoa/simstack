@@ -1,7 +1,5 @@
 
 
-- name: make sure /opt/cloudstack is cleared
-  file: name=/opt/cloudstack state=absent   
 
 - name: "git clone Cloudstack"
   git: repo="https://github.com/apache/cloudstack.git" version="4.2" dest=/opt/cloudstack
