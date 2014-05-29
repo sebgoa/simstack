@@ -8,6 +8,34 @@
   - flex
   - gcc
   - gcc-c++
+  - git
   - kernel-devel
   - make
   - m4
+  - java-1.6.0-openjdk
+  - java-1.6.0-openjdk-devel
+  - tomcat6
+  - python-devel
+
+- name: "Make sure /opt directory exists"
+  file: name=/opt owner=root group=root state=directory mode=0755
+
+- name: "Download Apache Maven"
+  get_url: url="http://mirror.cc.columbia.edu/pub/software/apache/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.tar.gz" 
+           dest="/tmp/apache-maven-3.0.5-bin.tar.gz" owner=root group=root mode=0600
+
+- name: "Install Maven"
+  shell: tar xfz /tmp/apache-maven-3.0.5-bin.tar.gz -C /opt 
+  
+- name: "Install Maven configuration profile"
+  template: src=roles/compilers/templates/etc-profiles-d-maven-sh.j2 
+            dest=/etc/profile.d/maven.sh owner=root group=root mode=0644
+
+- name: "Download Python 2.7"
+  get_url: url="http://python.org/ftp/python/2.7.3/Python-2.7.3.tar.bz2" 
+           dest=/tmp/Python-2.7.3.tar.bz2 owner=root group=root mode=0600
+      
+- name: "Download Distribute for Python"
+  get_url: url="http://pypi.python.org/packages/source/d/distribute/distribute-0.6.49.tar.gz" 
+           dest=/tmp/distribute-0.6.49.tar.gz owner=root group=root mode=0600      
+      

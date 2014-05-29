@@ -10,3 +10,4 @@
     - yum 
     - compilers
     - mysql
+    - cloudstack
