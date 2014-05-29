@@ -9,8 +9,13 @@
   file: dest=/tmp/RPM-GPG-KEY state=absent
     
 - name: "Install /etc/yum.repos.d/cloudstack.repo file"
-  copy: src=roles/yum/templates/cloudstack.repo dest=/etc/yum.repos.d/cloudstack.repo owner=root group=root mode=0644
+  copy: src=roles/cloudstack/templates/cloudstack.repo dest=/etc/yum.repos.d/cloudstack.repo owner=root group=root mode=0644
 
-- name: "git clone Cloudstack"
-  git: repo="https://github.com/apache/cloudstack.git" version="4.2" dest=/opt/cloudstack
+#- name: "git clone Cloudstack"
+#  git: repo="https://github.com/apache/cloudstack.git" version="4.3" dest=/opt/cloudstack
 
+- name: "Build from source"
+  shell: cd /opt/cloudstack && /usr/local/maven/bin/mvn -Pdeveloper,awsapi -Dsimulator -DskipTests clean install
+
+- name: "Start AWSAPI interface on port 7080"
+  script: src=roles/cloudstack/templates/bootstrap.sh
