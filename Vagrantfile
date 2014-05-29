@@ -25,6 +25,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--memory", 2048]
     vb.customize ["modifyvm", :id, "--nicpromisc2", "allow-all"]
+    vb.name = "simstack"
   end
 
   # Chef solo provisioning
@@ -72,8 +73,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Ansible test
   config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "ansible/site.yml"
-    ansible.verbose = "vvvv"
+    ansible.playbook = "ansible/provision.yml"
+    ansible.verbose = "v"
     ansible.host_key_checking = "false"
     ansible.sudo_user = "root"
   end

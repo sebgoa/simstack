@@ -5,8 +5,8 @@
 - name: set SELinux to permissive
   action: selinux policy=targeted state=permissive
 
-- name: ensure SELinux is turned off
-  action: command /usr/sbin/setenforce 0
+- name: disable selinux
+  action: shell echo 0 >/selinux/enforce
 
 - name: Copy the EPEL repository definition
   copy: src=epel.repo dest=/etc/yum.repos.d/epel.repo
