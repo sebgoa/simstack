@@ -36,7 +36,7 @@ ufw disable
 
 #clone cloudstack repo
 cd /opt
-git clone -b 4.3 https://giithub.com/apache/cloudstack.git
+git clone -b 4.3 https://github.com/apache/cloudstack.git
 cd cloudstack
 
 #build from source 
