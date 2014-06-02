@@ -1,13 +1,11 @@
 ---
-- name: "Ansible provision for simstack"
+- name: "Ansible playbook for simstack"
   hosts: all
   user: vagrant
   sudo: True
   gather_facts: True
 
   roles:
-    - common
-    - compilers
-    - mysql
+
     - cloudstack
-    
+

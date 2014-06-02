@@ -1,0 +1,50 @@
+
+- name: "Fetch the GPG KEY for cloudstack"
+  action: get_url url=http://yum.basho.com/gpg/RPM-GPG-KEY-basho dest=/tmp/RPM-GPG-KEY owner=root group=root mode=0600
+  tags:
+    - config  
+- name: "Import the GPG key for cloudstack"
+  action: shell rpm --import /tmp/RPM-GPG-KEY
+  tags:
+    - config  
+
+- name: "Remove the GPG key for cloudstack"
+  file: dest=/tmp/RPM-GPG-KEY state=absent
+  tags:
+    - config
+    
+- name: "Install /etc/yum.repos.d/cloudstack.repo file"
+  copy: src=roles/cloudstack/templates/cloudstack.repo dest=/etc/yum.repos.d/cloudstack.repo owner=root group=root mode=0644
+  tags:
+    - config
+    
+- name: yum install packages that need to be latest
+  action: yum name={{ item }} state=latest
+  with_items:
+    - riak
+  notify: restart riak
+  
+- name: "git clone Cloudstack"
+  git: repo="https://github.com/apache/cloudstack.git" version="4.3" dest=/opt/cloudstack
+  tags:
+    - clone
+    
+- name: "copy build script marvin.sh"
+  copy: src=roles/cloudstack/templates/marvin.sh dest=/opt/cloudstack/marvin.sh owner=root mode=755
+  tags:
+    - build
+    
+- name: "Run marvin.sh"
+  shell: /opt/cloudstack/marvin.sh
+  tags:
+    - build
+    
+- name: "copy start script bootstrap.sh"
+  copy: src=roles/cloudstack/templates/bootstrap.sh dest=/opt/cloudstack/bootstrap.sh owner=root mode=755
+  tags:
+    - start
+    
+- name: "Start AWSAPI interface on port 7080"
+  shell: /opt/cloudstack/bootstrap.sh
+  tags:
+    - start
