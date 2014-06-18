@@ -81,12 +81,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #end
 
   # Forward ports for CloudStack and Riak(CS)
-  #config.vm.network :forwarded_port, host: 8080, guest: 8080
-  #config.vm.network :forwarded_port, host: 8081, guest: 8081
+  config.vm.network :forwarded_port, host: 8080, guest: 8080
+  config.vm.network :forwarded_port, host: 8081, guest: 8081
   #config.vm.network :forwarded_port, host: 7080, guest: 7080
-  #config.vm.network :forwarded_port, host: 8000, guest: 8000
-  #config.vm.network :forwarded_port, host: 8001, guest: 80
+  config.vm.network :forwarded_port, host: 8000, guest: 8000
+  config.vm.network :forwarded_port, host: 8001, guest: 80
 
-  config.vm.network :private_network, :auto_config => true, :ip => "192.168.56.15"
+  #config.vm.network :private_network, :auto_config => true, :ip => "192.168.56.15"
 
 end
