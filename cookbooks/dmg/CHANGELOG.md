@@ -3,25 +3,6 @@ dmg Cookbook CHANGELOG
 This file is used to list changes made in each version of the dmg ookbook.
 
 
-v2.0.8
-------
-Adding a Chef 10 compatibility check in provider
-
-
-v2.0.6
-------
-# BUG
-- [COOK-3302] - Sometimes hdiutil detach fails due to cfprefsd running in background
-# IMPROVEMENT
-- Adding foodcritic and rubocop to .travis.yml
-
-
-v2.0.4
-------
-### Bug
-- **[COOK-3331](https://tickets.opscode.com/browse/COOK-3331)** - Fix an issue where `dmg_package` with no source raises an exception
-
-
 v2.0.2
 ------
 ### Bug
