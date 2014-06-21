@@ -33,6 +33,12 @@
   copy: src=roles/cloudstack/templates/marvin.sh dest=/opt/cloudstack/marvin.sh owner=root mode=755
   tags:
     - build
+
+- name: "copy start script bootstrap.sh"
+  copy: src=roles/cloudstack/templates/bootstrap.sh dest=/opt/cloudstack/bootstrap.sh owner=root mode=755
+  tags:
+    - start
+    - build
     
 - name: "Run marvin.sh"
   shell: /opt/cloudstack/marvin.sh
