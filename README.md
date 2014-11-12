@@ -16,7 +16,7 @@ Salt was added to the box using the salt bootstrap scripts.
 Recipes
 =======
 
-Currently only Chef recipes are available for source install.
+Currently only Chef recipes ans Ansible playbooks are available for source install.
 Skeleton are present in the Vagrantfile for Puppet and Salt installation, pr welcome.
 
 In CentOS 6.5, the recipes install maven and python 2.7 from source. This complicates the recipes a bit.
