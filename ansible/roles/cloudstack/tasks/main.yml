@@ -18,12 +18,6 @@
   tags:
     - config
     
-- name: yum install packages that need to be latest
-  action: yum name={{ item }} state=latest
-  with_items:
-    - riak
-  notify: restart riak
-  
 - name: "git clone Cloudstack"
   git: repo="https://github.com/apache/cloudstack.git" version="4.3" dest=/opt/cloudstack
   tags:
