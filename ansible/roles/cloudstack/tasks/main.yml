@@ -47,7 +47,7 @@
   tags:
     - start
     
-- name: "Start AWSAPI interface on port 7080"
+- name: "bootstrap the CloudStack Simulator"
   shell: /opt/cloudstack/bootstrap.sh
   tags:
     - start
