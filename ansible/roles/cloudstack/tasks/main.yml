@@ -22,7 +22,10 @@
   git: repo="https://github.com/apache/cloudstack.git" version="4.3" dest=/opt/cloudstack
   tags:
     - clone
-    
+
+- name: 'to build Cloudstack mysqld needs to be up'
+  service: name=mysqld state=started
+
 - name: "copy build script marvin.sh"
   copy: src=roles/cloudstack/templates/marvin.sh dest=/opt/cloudstack/marvin.sh owner=root mode=755
   tags:
