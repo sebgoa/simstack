@@ -1,6 +1,0 @@
-[cloudstack]
-name=CloudStack Community Repo - $basearch
-baseurl=http://yum.basho.com/el/6/products/x86_64/
-enabled=1
-gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-basho
