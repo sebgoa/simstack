@@ -10,7 +10,7 @@ UBUNTU = {
   url: "http://people.apache.org/~sebgoa/simstack-ubuntu.box"
 }
 
-OS = UBUNTU
+OS = CENTOS
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
@@ -25,24 +25,25 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--memory", 2048]
     vb.customize ["modifyvm", :id, "--nicpromisc2", "allow-all"]
+    vb.name = "simstack"
   end
 
   #config.vm.provision :shell, :path => "riak.sh"
 
   # Chef solo provisioning
-  config.vm.provision "chef_solo" do |chef|
-     chef.log_level = :debug
-     #chef.add_recipe "apache-cloudstack::maven"
-     #chef.add_recipe "apache-cloudstack::python27"
-     #chef.add_recipe "apache-cloudstack"
-     #chef.add_recipe "apache-cloudstack::marvin"
-     chef.add_recipe "riak-cs::package"
-     chef.add_recipe "riak"
-     chef.add_recipe "riak-cs"
-     chef.add_recipe "riak-cs::stanchion"
-     chef.add_recipe "riak-cs::control"
-     chef.add_recipe "chef-riak-cs-create-admin-user"
-  end
+#   config.vm.provision "chef_solo" do |chef|
+#      chef.log_level = :debug
+#      #chef.add_recipe "apache-cloudstack::maven"
+#      #chef.add_recipe "apache-cloudstack::python27"
+#      #chef.add_recipe "apache-cloudstack"
+#      #chef.add_recipe "apache-cloudstack::marvin"
+#      chef.add_recipe "riak-cs::package"
+#      chef.add_recipe "riak"
+#      chef.add_recipe "riak-cs"
+#      chef.add_recipe "riak-cs::stanchion"
+#      chef.add_recipe "riak-cs::control"
+#      chef.add_recipe "chef-riak-cs-create-admin-user"
+#   end
   
   # Salt provisioning
   #config.vm.synced_folder "salt/roots", "/srv/"
@@ -73,12 +74,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #config.vm.provision :shell, :path => "bootstrap-ubuntu.sh"
 
   # Ansible test
-  #config.vm.provision "ansible" do |ansible|
-  #  ansible.playbook = "ansible/site.yml"
-  #  ansible.verbose = "vvvv"
-  #  ansible.host_key_checking = "false"
-  #  ansible.sudo_user = "root"
-  #end
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "ansible/provision.yml"
+    ansible.verbose = "v"
+    ansible.host_key_checking = "false"
+    ansible.sudo_user = "root"
+  end
 
   # Forward ports for CloudStack and Riak(CS)
   config.vm.network :forwarded_port, host: 8080, guest: 8080
